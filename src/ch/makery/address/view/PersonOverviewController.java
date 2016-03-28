@@ -1,14 +1,11 @@
 package ch.makery.address.view;
 
-import org.controlsfx.dialog.Dialogs;
-
-import ch.makery.address.MainApp;
-import ch.makery.address.model.Person;
-import ch.makery.address.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import ch.makery.address.MainApp;
+import ch.makery.address.model.Person;
 
 public class PersonOverviewController {
 	@FXML
@@ -46,63 +43,9 @@ public class PersonOverviewController {
 	 */
 	@FXML
 	private void initialize() {
-		// Inicializa a tabela de pessoas com duas colunas.
+		// Inicializa a tablea de pessoa com duas colunas.
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
-
-		// Limpa os detalhes da pessoa.
-		showPersonDetails(null);
-
-		// Detecta mudanças de seleção e mostra os detalhes da pessoa quando
-		// houver mudança.
-		personTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
-	}
-
-	/**
-	 * PReenche todos os campos de texto para mostrar detalhes sobre a pessoa.
-	 * Se a pessoa especificada for null, todos os campos de texto são limpos.
-	 * 
-	 * @param person
-	 *            a pessoa ou null
-	 */
-	private void showPersonDetails(Person person) {
-		if (person != null) {
-			// Preenche as labels com informações do objeto person.
-			firstNameLabel.setText(person.getFirstName());
-			lastNameLabel.setText(person.getLastName());
-			streetLabel.setText(person.getStreet());
-			postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
-			cityLabel.setText(person.getCity());
-
-			birthdayLabel.setText(DateUtil.format(person.getBirthday()));
-		} else {
-			// Person é null, remove todo o texto.
-			firstNameLabel.setText("");
-			lastNameLabel.setText("");
-			streetLabel.setText("");
-			postalCodeLabel.setText("");
-			cityLabel.setText("");
-			birthdayLabel.setText("");
-		}
-	}
-
-	/**
-	 * Chamado quando o usuário clica no botão delete.
-	 */
-	/**
-	 * Chamado quando o usuário clica no botão delete.
-	 */
-	@FXML
-	private void handleDeletePerson() {
-		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
-			personTable.getItems().remove(selectedIndex);
-		} else {
-			// Nada selecionado.
-			Dialogs.create().title("Nenhuma seleção").masthead("Nenhuma Pessoa Selecionada")
-					.message("Por favor, selecione uma pessoa na tabela.").showWarning();
-		}
 	}
 
 	/**
