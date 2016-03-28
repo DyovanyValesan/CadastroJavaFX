@@ -1,5 +1,7 @@
 package ch.makery.address.view;
 
+import org.controlsfx.dialog.Dialogs;
+
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
@@ -88,10 +90,19 @@ public class PersonOverviewController {
 	/**
 	 * Chamado quando o usuário clica no botão delete.
 	 */
+	/**
+	 * Chamado quando o usuário clica no botão delete.
+	 */
 	@FXML
 	private void handleDeletePerson() {
 		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
-		personTable.getItems().remove(selectedIndex);
+		if (selectedIndex >= 0) {
+			personTable.getItems().remove(selectedIndex);
+		} else {
+			// Nada selecionado.
+			Dialogs.create().title("Nenhuma seleção").masthead("Nenhuma Pessoa Selecionada")
+					.message("Por favor, selecione uma pessoa na tabela.").showWarning();
+		}
 	}
 
 	/**
